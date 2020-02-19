@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memo3_comment">
+
+
+ <insert id="insert" parameterType="memo.dto.Memo_CommentDTO">
+    insert into memo3_comment ( idx, memo3_idx, writer, memo3_comment ) values 
+    ( (select nvl( max(idx)+1, 1) from memo3_comment)
+    ,#{memo3_idx}, #{writer}, #{memo3_comment})
+ </insert>
+ 
+ 
+
+ <select id="list" parameterType="int" resultType="memo.dto.Memo_CommentDTO">
+    select idx, memo3_idx, writer, memo3_comment
+		from memo3_comment
+		where memo3_idx=#{idx}
+		order by idx desc
+ </select>
+</mapper>
